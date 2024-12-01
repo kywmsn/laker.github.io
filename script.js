@@ -34,13 +34,16 @@ loginButton.addEventListener('click', function() {
     if (storedData && storedData.password === enteredPassword) {
         // 如果账号存在且密码匹配，跳转到指定页面
         window.location.href = "https://jiruan.xyz";
+    } else if (storedData && storedData.password !== enteredPassword) {
+        // 如果账号存在，但密码不匹配，提示修改密码
+        alert("密码不正确，请重新输入或点击注册修改密码！");
     } else {
-        // 如果账号或密码不匹配，或者没有注册该账号
-        alert("账号或密码错误，请重新输入！");
+        // 如果账号不存在，提示注册
+        alert("账号不存在，请注册！");
     }
 });
 
-// 点击注册按钮时进行注册验证（覆盖密码功能）
+// 点击注册按钮时进行注册验证（密码等于账号）
 registerButton.addEventListener('click', function() {
     const enteredUsername = usernameInput.value;
     const enteredPassword = passwordInput.value;
@@ -49,7 +52,7 @@ registerButton.addEventListener('click', function() {
     const storedData = getStoredAccountPassword(enteredUsername);
 
     if (storedData) {
-        // 如果账号已经存在，直接覆盖密码
+        // 如果账号已存在，直接更新密码
         if (isPasswordValid(enteredPassword)) {
             storeAccountPassword(enteredUsername, enteredPassword);
             alert("密码已成功更新！");
@@ -57,19 +60,17 @@ registerButton.addEventListener('click', function() {
             alert("密码必须为8位以内的字符！");
         }
     } else {
-        // 如果账号不存在，执行正常注册
-        if (enteredUsername >= 22000000 && enteredUsername <= 24000000 && isPasswordValid(enteredPassword)) {
-            storeAccountPassword(enteredUsername, enteredPassword);
-            alert("注册成功！");
+        // 如果账号不存在，执行注册操作，密码等于账号
+        if (enteredUsername >= 22000000 && enteredUsername <= 24000000) {
+            // 初始密码等于账号
+            storeAccountPassword(enteredUsername, enteredUsername.toString());
+            alert("注册成功！密码已设置为账号！");
         } else {
-            if (enteredUsername < 22000000 || enteredUsername > 24000000) {
-                alert("账号不在有效范围内！");
-            } else {
-                alert("密码必须为8位以内的字符！");
-            }
+            alert("账号不在有效范围内！");
         }
     }
 });
+
 
 
 
