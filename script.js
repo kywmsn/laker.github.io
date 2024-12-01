@@ -6,7 +6,7 @@ const registerButton = document.getElementById('registerButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
-// 模拟数据库，账号和密码范围从2200000到24000000
+// 模拟数据库，账号和密码范围从22000000到24000000
 function isValidAccount(account, password) {
     // 将账号和密码都视作字符串，如果账号和密码相等且在范围内返回 true
     const accountNum = parseInt(account, 10);
@@ -42,4 +42,5 @@ registerButton.addEventListener('click', function() {
         alert("注册未成功，请确保账号和密码相同并在有效范围内！");
     }
 });
+
 
