@@ -6,17 +6,21 @@ const registerButton = document.getElementById('registerButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
-// 假设正确的用户名和密码（用于登录验证）
-const correctUsername = "admin";
-const correctPassword = "123456";
+// 模拟数据库，账号和密码范围从2200000到24000000
+function isValidAccount(account, password) {
+    // 将账号和密码都视作字符串，如果账号和密码相等且在范围内返回 true
+    const accountNum = parseInt(account, 10);
+    const passwordNum = parseInt(password, 10);
+    return accountNum >= 22000000 && accountNum <= 24000000 && accountNum === passwordNum && passwordNum === passwordNum;
+}
 
 // 点击登录按钮时进行验证
 loginButton.addEventListener('click', function() {
     const enteredUsername = usernameInput.value;
     const enteredPassword = passwordInput.value;
 
-    // 检查用户名和密码是否匹配
-    if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+    // 使用模拟数据库检查账号和密码
+    if (isValidAccount(enteredUsername, enteredPassword)) {
         // 如果匹配，跳转到 jiruan.xyz
         window.location.href = "https://jiruan.xyz";
     } else {
@@ -30,11 +34,12 @@ registerButton.addEventListener('click', function() {
     const enteredUsername = usernameInput.value;
     const enteredPassword = passwordInput.value;
 
-    // 如果账号和密码相同，显示注册成功
-    if (enteredUsername === enteredPassword) {
+    // 注册时，检查账号和密码是否相同并在有效范围内
+    if (enteredUsername === enteredPassword && isValidAccount(enteredUsername, enteredPassword)) {
         alert("注册成功！");
     } else {
-        // 如果账号和密码不相同，显示注册未成功
-        alert("注册未成功，请确保账号和密码正确！");
+        // 如果账号和密码不相同或不在范围内，显示注册未成功
+        alert("注册未成功，请确保账号和密码相同并在有效范围内！");
     }
 });
+
