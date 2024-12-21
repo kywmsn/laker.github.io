@@ -33,7 +33,7 @@ loginButton.addEventListener('click', function() {
 
     if (storedData && storedData.password === enteredPassword) {
         // 如果账号存在且密码匹配，跳转到指定页面
-        window.location.href = "https://jiruan.xyz";
+        window.location.href = "https://jiruan.xyz/csy";
     } else if (storedData && storedData.password !== enteredPassword) {
         // 如果账号存在，但密码不匹配，提示修改密码
         alert("密码不正确，请重新输入或点击注册修改密码！");
