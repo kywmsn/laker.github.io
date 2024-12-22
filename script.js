@@ -75,6 +75,9 @@ loginButton.addEventListener('click', () => {
                     if (userData) {
                         alert(`登录成功！欢迎：${userData.username || userData.email}`);
                         console.log('用户数据：', userData);
+
+                        // 登录成功后跳转到指定网页
+                        window.location.href = "https://jiruan.xyz";
                     } else {
                         alert('登录成功，但未找到用户数据！');
                     }
@@ -87,5 +90,6 @@ loginButton.addEventListener('click', () => {
             alert('登录失败：' + error.message);
         });
 });
+
 
 
