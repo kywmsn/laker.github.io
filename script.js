@@ -84,7 +84,7 @@ loginButton.addEventListener('click', () => {
         .then((userCredential) => {
             console.log('登录成功，用户信息：', userCredential.user);
             // 登录成功后立即跳转
-            window.location.href = "https://jiruan.xyz"; // 替换为目标网址
+            window.location.href = "https://jiaowu.buaa.edu.cn/"; // 替换为目标网址
         })
         .catch((error) => {
             console.error('登录失败：', error.message);
