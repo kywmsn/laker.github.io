@@ -27,29 +27,28 @@ registerButton.addEventListener('click', () => {
         return;
     }
 
-    // 自动补全邮箱
     email = autoCompleteEmail(email);
     console.log(`注册时补全的邮箱为：${email}`);
 
-    // 检查邮箱是否已注册
     firebase.auth().fetchSignInMethodsForEmail(email)
         .then((methods) => {
             if (methods.length > 0) {
                 alert(`该邮箱 ${email} 已被注册，请尝试登录或使用其他用户名。`);
             } else {
-                // 邮箱未注册，创建用户
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then((userCredential) => {
                         const user = userCredential.user;
 
-                        // 将用户信息写入数据库
-                        const userId = user.uid;
-                        firebase.database().ref('users/' + userId).set({
+                        firebase.database().ref('users/' + user.uid).set({
                             username: usernameInput.value.trim(),
                             email: email,
                             createdAt: new Date().toISOString()
                         }).then(() => {
                             alert(`注册成功！您注册的邮箱为：${email}`);
+                            const successMessage = document.createElement('p');
+                            successMessage.textContent = '注册成功！请前往登录。';
+                            successMessage.style.color = 'green';
+                            document.querySelector('.box').appendChild(successMessage);
                         }).catch((error) => {
                             console.error('数据库写入失败：', error.message);
                         });
@@ -75,16 +74,16 @@ loginButton.addEventListener('click', () => {
         return;
     }
 
-    // 自动补全邮箱
     email = autoCompleteEmail(email);
     console.log(`登录时补全的邮箱为：${email}`);
 
-    // 登录用户
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             console.log('登录成功，用户信息：', userCredential.user);
-            // 登录成功后立即跳转
-            window.location.replace("https://jiaowu.buaa.edu.cn/");
+            alert('登录成功！即将跳转...');
+            setTimeout(() => {
+                window.location.replace("https://jiaowu.buaa.edu.cn/");
+            }, 1000);
         })
         .catch((error) => {
             console.error('登录失败：', error.message);
