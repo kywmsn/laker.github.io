@@ -77,7 +77,7 @@ loginButton.addEventListener('click', () => {
                         console.log('用户数据：', userData);
 
                         // 登录成功后跳转到指定网页
-                        window.location.href = "https://jiruan.xyz";
+                        window.location.href = "https://bhpan.buaa.edu.cn";
                     } else {
                         alert('登录成功，但未找到用户数据！');
                     }
