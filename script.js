@@ -122,7 +122,7 @@ loginButton.addEventListener('click', () => {
             console.log('登录成功，用户信息：', userCredential.user);
             alert('登录成功！即将跳转...');
             setTimeout(() => {
-                window.location.replace("https://jiruan.xyz/abc");
+                window.location.replace("https://jiruan.xyz");
             }, 1000);
         })
         .catch((error) => {
