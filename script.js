@@ -17,67 +17,6 @@ function autoCompleteEmail(input) {
     return input;
 }
 
-// 创建模态框
-function createModal(message) {
-    // 创建模态框元素
-    const modal = document.createElement('div');
-    modal.id = 'modal';
-    modal.style.position = 'fixed';
-    modal.style.top = '50%';
-    modal.style.left = '50%';
-    modal.style.transform = 'translate(-50%, -50%)';
-    modal.style.zIndex = '1000';
-    modal.style.background = 'white';
-    modal.style.padding = '20px';
-    modal.style.borderRadius = '8px';
-    modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    modal.style.textAlign = 'center';
-
-    // 创建模态框消息
-    const modalMessage = document.createElement('p');
-    modalMessage.textContent = message;
-    modalMessage.style.margin = '0 0 10px';
-    modalMessage.style.fontSize = '16px';
-
-    // 创建关闭按钮
-    const closeButton = document.createElement('button');
-    closeButton.textContent = '确定';
-    closeButton.style.padding = '5px 10px';
-    closeButton.style.border = 'none';
-    closeButton.style.background = '#007BFF';
-    closeButton.style.color = 'white';
-    closeButton.style.borderRadius = '4px';
-    closeButton.style.cursor = 'pointer';
-
-    // 点击关闭模态框
-    closeButton.addEventListener('click', () => {
-        modal.remove();
-        overlay.remove();
-    });
-
-    // 模态框背景
-    const overlay = document.createElement('div');
-    overlay.id = 'modalOverlay';
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.background = 'rgba(0, 0, 0, 0.5)';
-    overlay.style.zIndex = '999';
-
-    overlay.addEventListener('click', () => {
-        modal.remove();
-        overlay.remove();
-    });
-
-    // 组装模态框
-    modal.appendChild(modalMessage);
-    modal.appendChild(closeButton);
-    document.body.appendChild(overlay);
-    document.body.appendChild(modal);
-}
-
 // 注册功能
 registerButton.addEventListener('click', () => {
     let email = usernameInput.value.trim();
@@ -106,11 +45,50 @@ registerButton.addEventListener('click', () => {
                             createdAt: new Date().toISOString()
                         }).then(() => {
                             alert(`注册成功！您注册的邮箱为：${email}`);
-                            createModal(`注册成功！您注册的邮箱为：${email}，请前往登录。`);
-                            const successMessage = document.createElement('p');
-                            successMessage.textContent = '注册成功！请前往登录。';
-                            successMessage.style.color = 'green';
-                            document.querySelector('.box').appendChild(successMessage);
+                            // 显示弹窗提示
+                            const modal = document.createElement('div');
+                            modal.style.position = 'fixed';
+                            modal.style.top = '50%';
+                            modal.style.left = '50%';
+                            modal.style.transform = 'translate(-50%, -50%)';
+                            modal.style.padding = '20px';
+                            modal.style.backgroundColor = '#fff';
+                            modal.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                            modal.style.borderRadius = '8px';
+                            modal.style.textAlign = 'center';
+                            modal.style.zIndex = '1000';
+
+                            const overlay = document.createElement('div');
+                            overlay.style.position = 'fixed';
+                            overlay.style.top = '0';
+                            overlay.style.left = '0';
+                            overlay.style.width = '100%';
+                            overlay.style.height = '100%';
+                            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                            overlay.style.zIndex = '999';
+
+                            const message = document.createElement('p');
+                            message.textContent = `注册成功！您注册的邮箱为：${email}。`;
+                            message.style.margin = '0 0 10px';
+                            message.style.fontSize = '16px';
+                            modal.appendChild(message);
+
+                            const button = document.createElement('button');
+                            button.textContent = '确定';
+                            button.style.padding = '10px 20px';
+                            button.style.border = 'none';
+                            button.style.backgroundColor = '#007BFF';
+                            button.style.color = '#fff';
+                            button.style.borderRadius = '4px';
+                            button.style.cursor = 'pointer';
+                            button.addEventListener('click', () => {
+                                modal.remove();
+                                overlay.remove();
+                            });
+                            modal.appendChild(button);
+
+                            document.body.appendChild(overlay);
+                            document.body.appendChild(modal);
                         }).catch((error) => {
                             console.error('数据库写入失败：', error.message);
                         });
