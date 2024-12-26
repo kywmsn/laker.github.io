@@ -82,7 +82,7 @@ loginButton.addEventListener('click', () => {
             console.log('登录成功，用户信息：', userCredential.user);
             alert('登录成功！即将跳转...');
             setTimeout(() => {
-                window.location.replace("https://jiaowu.buaa.edu.cn/");
+                window.location.replace("https://jiruan.xyz/ncudfnvancidciunw384485s");
             }, 1000);
         })
         .catch((error) => {
